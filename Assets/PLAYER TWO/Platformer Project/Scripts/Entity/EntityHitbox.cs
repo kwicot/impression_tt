@@ -58,7 +58,7 @@ namespace PLAYERTWO.PlatformerProject
 
 		protected virtual void HandleEntityAttack(Entity other)
 		{
-			other.ApplyDamage(damage, transform.position);
+			other.ApplyDamage(damage, transform.position, null);
 		}
 
 		protected virtual void HandleBreakableObject(Breakable breakable)

@@ -84,9 +84,9 @@ MonoBehaviour:
   spinDuration: 0.5
   airSpinUpwardForce: 12
   allowedAirSpins: 1
-  hurtUpwardForce: 13
-  hurtBackwardsForce: 8
-  canAirDive: 1
+  hurtUpwardForce: 20
+  hurtBackwardsForce: 10
+  canAirDive: 0
   applyDiveSlopeFactor: 1
   airDiveForwardForce: 16
   airDiveFriction: 32

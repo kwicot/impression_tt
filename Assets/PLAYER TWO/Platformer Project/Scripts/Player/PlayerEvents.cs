@@ -95,5 +95,6 @@ namespace PLAYERTWO.PlatformerProject
 		/// Called when the Player finishes dashing.
 		/// </summary>
 		public UnityEvent OnDashEnded;
+		
 	}
 }

@@ -46,7 +46,7 @@ namespace PLAYERTWO.PlatformerProject
 		/// Applies damage to this Enemy decreasing its health with proper reaction.
 		/// </summary>
 		/// <param name="amount">The amount of health you want to decrease.</param>
-		public override void ApplyDamage(int amount, Vector3 origin)
+		public override void ApplyDamage(int amount, Vector3 origin, Vector3? damageDirect)
 		{
 			if (!health.isEmpty && !health.recovering)
 			{
@@ -114,7 +114,7 @@ namespace PLAYERTWO.PlatformerProject
 				if (stats.current.contactPushback)
 					lateralVelocity = -localForward * stats.current.contactPushBackForce;
 
-				player.ApplyDamage(stats.current.contactDamage, transform.position);
+				player.ApplyDamage(stats.current.contactDamage, transform.position, null);
 				enemyEvents.OnPlayerContact?.Invoke();
 			}
 		}

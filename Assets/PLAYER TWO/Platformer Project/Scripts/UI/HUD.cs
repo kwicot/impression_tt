@@ -26,6 +26,10 @@ namespace PLAYERTWO.PlatformerProject
 		public Text timer;
 		[Tooltip("The images to display the stars.")]
 		public Image[] starsImages;
+		[Tooltip("The image to display the retries")]
+		public Image[] retriesImage;
+		[Tooltip("The image to display the health")]
+		public Image[] healthImage;
 
 		[Header("Timer Settings")]
 		[Tooltip("The separator between the minutes and the seconds.")]

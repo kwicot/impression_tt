@@ -127,6 +127,18 @@ namespace PLAYERTWO.PlatformerProject
 			InitializeAnimatorTriggers();
 		}
 
+		public virtual void SwitchToDisable()
+		{
+			animator.enabled = false;
+			//other logic
+		}
+
+		public virtual void SwitchToEnable()
+		{
+			//other logic
+			animator.enabled = true;
+		}
+
 		protected virtual void LateUpdate() => HandleAnimatorParameters();
 	}
 }

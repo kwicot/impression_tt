@@ -19,7 +19,7 @@ namespace PLAYERTWO.PlatformerProject
 		/// </summary>
 		public UnityEvent OnSavingRequested;
 
-		public int initialRetries = 3;
+		[Tooltip("-1 = infiniti")]public int initialRetries = 3;
 		public List<GameLevel> levels;
 
 		protected int m_retries;

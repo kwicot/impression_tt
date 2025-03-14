@@ -25,6 +25,9 @@ namespace PLAYERTWO.PlatformerProject
 
 		[Header("Score Settings")]
 		public bool resetCoins = true;
+		
+		[Header("Camera settings")]
+		public bool freezeCamera = true;
 
 		protected List<PlayerCamera> m_cameras;
 
@@ -42,7 +45,7 @@ namespace PLAYERTWO.PlatformerProject
 			}
 
 			m_level.player.Respawn();
-			FreezeCameras();
+			FreezeCameras(freezeCamera);
 
 			if (resetCoins)
 				m_score.coins = 0;
@@ -82,7 +85,7 @@ namespace PLAYERTWO.PlatformerProject
 			m_pauser.Pause(false);
 			m_pauser.canPause = false;
 			m_level.player.inputs.enabled = false;
-			FreezeCameras();
+			FreezeCameras(freezeCamera);
 
 			if (consumeRetries && m_game.retries == 0)
 			{
@@ -103,7 +106,7 @@ namespace PLAYERTWO.PlatformerProject
 			}
 		}
 
-		protected virtual void FreezeCameras(bool value = true)
+		protected virtual void FreezeCameras(bool value)
 		{
 			foreach (var camera in m_cameras)
 			{

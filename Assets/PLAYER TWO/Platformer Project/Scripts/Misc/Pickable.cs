@@ -93,7 +93,7 @@ namespace PLAYERTWO.PlatformerProject
 			if (attackEnemies && entity is Enemy &&
 				m_rigidBody.linearVelocity.magnitude > minDamageSpeed)
 			{
-				entity.ApplyDamage(damage, transform.position);
+				entity.ApplyDamage(damage, transform.position, null);
 			}
 		}
 

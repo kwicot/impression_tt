@@ -10,7 +10,7 @@ namespace PLAYERTWO.PlatformerProject
 		public bool damageOnlyFromAbove;
 		public int damage = 1;
 
-		protected Collider m_collider;
+		protected Collider m_collider;	
 
 		protected virtual void Awake()
 		{
@@ -24,15 +24,7 @@ namespace PLAYERTWO.PlatformerProject
 			if (!damageOnlyFromAbove || player.verticalVelocity.y < 0 &&
 				BoundsHelper.IsBellowPoint(m_collider, player.stepPosition))
 			{
-				player.ApplyDamage(damage, transform.position);
-			}
-		}
-
-		public virtual void OnEntityContact(Entity entity)
-		{
-			if (entity is Player player)
-			{
-				TryToApplyDamageTo(player);
+				player.ApplyDamage(damage, transform.position,Vector3.zero);
 			}
 		}
 
@@ -44,6 +36,14 @@ namespace PLAYERTWO.PlatformerProject
 				{
 					TryToApplyDamageTo(player);
 				}
+			}
+		}
+
+		public void OnEntityContact(Entity entity)
+		{
+			if (entity is Player player)
+			{
+				TryToApplyDamageTo(player);
 			}
 		}
 	}

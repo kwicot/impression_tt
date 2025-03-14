@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PLAYERTWO.PlatformerProject
@@ -154,25 +155,43 @@ namespace PLAYERTWO.PlatformerProject
 		/// Applies damage to this Player decreasing its health with proper reaction.
 		/// </summary>
 		/// <param name="amount">The amount of health you want to decrease.</param>
-		public override void ApplyDamage(int amount, Vector3 origin)
+		public override void ApplyDamage(int amount, Vector3 origin, Vector3? damageDirect)
 		{
 			if (health.isEmpty || health.recovering || !canTakeDamage)
 				return;
 
 			health.Damage(amount);
 
-			var head = origin - transform.position;
-			var upOffset = Vector3.Dot(transform.up, head);
-			var damageDir = (head - transform.up * upOffset).normalized;
+				var head = origin - transform.position;
+				var upOffset = Vector3.Dot(transform.up, head);
+				var damageDir = (head - transform.up * upOffset).normalized;
+
 			var localDamageDir = Quaternion.FromToRotation(transform.up, Vector3.up) * damageDir;
 
 			FaceDirection(localDamageDir);
-			lateralVelocity = -localForward * stats.current.hurtBackwardsForce;
-
-			if (!onWater)
+			
+			if (damageDirect == null)
 			{
-				verticalVelocity = Vector3.up * stats.current.hurtUpwardForce;
-				states.Change<HurtPlayerState>();
+				lateralVelocity = -localForward * stats.current.hurtBackwardsForce;
+
+				if (!onWater)
+				{
+					verticalVelocity = Vector3.up * stats.current.hurtUpwardForce;
+					states.Change<HurtPlayerState>();
+				}
+			}
+			else
+			{
+				Debug.Log(damageDirect);
+				Debug.DrawRay(transform.position, (Vector3)damageDirect, Color.red, 10);
+				
+				lateralVelocity = (Vector3)damageDirect * stats.current.hurtBackwardsForce;
+
+				if (!onWater)
+				{
+					verticalVelocity = (Vector3)damageDirect * stats.current.hurtUpwardForce;;
+					states.Change<HurtPlayerState>();
+				}
 			}
 
 			playerEvents.OnHurt?.Invoke();

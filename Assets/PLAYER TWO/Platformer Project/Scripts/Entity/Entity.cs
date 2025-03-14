@@ -269,7 +269,7 @@ namespace PLAYERTWO.PlatformerProject
 				result, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 		}
 
-		public virtual void ApplyDamage(int damage, Vector3 origin) { }
+		public virtual void ApplyDamage(int damage, Vector3 origin, Vector3? vector3) { }
 
 		public abstract void EntityUpdate();
 	}
@@ -277,6 +277,7 @@ namespace PLAYERTWO.PlatformerProject
 	public abstract class Entity<T> : Entity where T : Entity<T>
 	{
 		protected IEntityContact[] m_listeners;
+		protected IEntityContactNormal[] m_listenersNormal;
 
 		/// <summary>
 		/// Returns the State Manager of this Entity.
@@ -413,11 +414,16 @@ namespace PLAYERTWO.PlatformerProject
 		{
 			if (!collider)
 				return;
-
+			
 			m_listeners = collider.GetComponents<IEntityContact>();
-
 			foreach (var listener in m_listeners)
 				listener.OnEntityContact((T)this);
+
+			m_listenersNormal = collider.GetComponents<IEntityContactNormal>();
+			Vector3 closestPoint = collider.ClosestPoint(transform.position);
+			Vector3 contactNormal = (transform.position - closestPoint).normalized;
+			foreach (var listener in m_listenersNormal)
+				listener.OnEntityContact((T)this, contactNormal);
 		}
 
 		protected virtual void EnterGround(RaycastHit hit)
